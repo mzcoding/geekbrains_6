@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\FakeNewsService;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-	protected $listNews = [
-		'News 1',
-		'News 2',
-		'News 3',
-		'News 4',
-		'News 5'
-	];
-    public function index()
+
+    public function index(FakeNewsService $service)
 	{
-		return view('news.index', ['listNews' => $this->listNews]);
+		return view('news.index', [
+			'listNews' => $service->getNews()
+		]);
 	}
-	public function show(int $id)
+	public function show(FakeNewsService $service, int $id)
 	{
-		$news = $this->listNews[$id] ?? "Not found";
-        return view('news.show', ['news' => $news]);
+		$allNews = $service->getNews();
+		$news =  $allNews[$id] ?? "Not found";
+        return view('news.show', [
+        	'news' => $news
+		]);
 	}
 }

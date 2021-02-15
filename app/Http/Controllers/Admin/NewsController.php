@@ -14,7 +14,7 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-    	dd($request->all(), "Hello name", [1,2,3]);
+    	//return view('');
     }
 
     /**

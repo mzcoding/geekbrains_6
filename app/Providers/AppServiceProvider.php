@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\FakeNewsService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
 		if ($this->app->isLocal()) {
 			$this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
 		}
+
+		$this->app->bind(FakeNewsService::class, function () {
+			return new FakeNewsService();
+		});
     }
 
     /**
