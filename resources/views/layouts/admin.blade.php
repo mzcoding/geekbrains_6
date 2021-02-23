@@ -34,6 +34,9 @@
 
         <!-- Main Content -->
         <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+            <!-- End of Topbar -->
             @yield('content')
         </div>
         <!-- End of Main Content -->

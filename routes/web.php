@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 
 /*
@@ -24,6 +25,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 	Route::get('/', [IndexController::class, 'index'])
 		->name('admin');
 	Route::resource('news', AdminNewsController::class);
+	Route::resource('categories', CategoryController::class);
 });
 Route::group(['prefix' => 'news', 'as' => 'news.'], function() {
   Route::get('/', [NewsController::class, 'index'])
@@ -32,3 +34,4 @@ Route::group(['prefix' => 'news', 'as' => 'news.'], function() {
 	  ->where('id', '\d+')
 	  ->name('show');
 });
+
