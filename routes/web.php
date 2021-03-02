@@ -35,3 +35,4 @@ Route::group(['prefix' => 'news', 'as' => 'news.'], function() {
 	  ->name('show');
 });
 
+Route::get('/example', fn() => null);
