@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryEditRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -51,27 +53,26 @@ class CategoryController extends Controller
         return view('admin.news.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param CategoryCreateRequest $request
+	 * @return \Illuminate\Http\Response
+	 */
+    public function store(CategoryCreateRequest $request)
 	{
-		//validation
-		$request->validate([
-			'title' => 'required'
-		]);
-
-		$data = $request->only(['title', 'description']);
+		$data = $request->validated();
 		$data['slug'] = \Str::slug($data['title']);
 		$create = Category::create($data);
 		if ($create) {
-            return redirect()->route('admin.categories.index')->with('success', 'Запись успешно добавлена');
+            return redirect()->route('admin.categories.index')
+				  ->with('success', __('messages.admin.categories.success'));
 		}
 
-		return back()->withInput()->with('errors', 'Не удалось добавить запись');
+
+
+		return back()->withInput()->with('errors',
+			__('messages.admin.categories.fail'));
 
 	}
 
@@ -104,18 +105,13 @@ class CategoryController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param \Illuminate\Http\Request $request
+	 * @param CategoryEditRequest $request
 	 * @param Category $category
 	 * @return \Illuminate\Http\Response
 	 */
-    public function update(Request $request, Category $category)
+    public function update(CategoryEditRequest $request, Category $category)
     {
-		$request->validate([
-			'title' => 'required'
-		]);
-
-
-		$data = $request->only(['title', 'description']);
+		$data = $request->validated();
 		$data['slug'] = \Str::slug($data['title']);
 
 		//$category->title = "New Data";

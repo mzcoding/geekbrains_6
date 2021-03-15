@@ -3,16 +3,16 @@
 @section('content')
 	<div class="row">
 		<div class="col-lg-8 col-md-10 mx-auto">
-			@forelse($listNews as $key => $news)
+			@forelse($listNews as $news)
 			<div class="post-preview">
-				<a href="{{ route('news.show', ['id' => $key]) }}">
+				<a href="{{ route('news.show', ['id' => $news->id]) }}">
 					<h2 class="post-title">
-						{{ $news['title'] }}
+						{{ $news->title }}
 					</h2>
 				</a>
-				<p class="post-meta">Опубликовал
-					<a href="#">{{ $news['author'] }}</a>
-					в {{ $news['created_at']->format('d-m-Y H:i') }}</p>
+				<p class="post-meta">Категория
+					<a href="#">{{ optional($news->category)->title }}</a>
+					в {{ now() }}</p>
 			</div>
 			<hr>
 			@empty
